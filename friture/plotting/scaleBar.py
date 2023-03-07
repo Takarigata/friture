@@ -66,7 +66,7 @@ class VerticalScaleBar(QtWidgets.QWidget):
         xb = self.width() - self.borderOffset
         y0 = int(self.coordinateTransform.toScreen(self.coordinateTransform.coord_min))
         y1 = int(self.coordinateTransform.toScreen(self.coordinateTransform.coord_max))
-        painter.drawLine(xb, y0, xb, y1)
+
 
         # tick start
         xt = xb - self.tickLength
@@ -120,6 +120,8 @@ class VerticalScaleBar(QtWidgets.QWidget):
         except:
             print("Error in calculation")
 
+        painter.setPen(QtGui.QColor(0, 0, 0))
+        painter.drawLine(xb, y0, xb, y1)
         for tick in self.scaleDivision.majorTicks():
             # for vertical scale we invert the coordinates
             y = self.height() - int(self.coordinateTransform.toScreen(tick))
