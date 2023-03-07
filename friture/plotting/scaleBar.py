@@ -1,6 +1,7 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
 from friture.plotting.frequency_scales import numberPrecision
 from friture.plotting import generated_cmrmap
+from friture import dataconverterhelper as dch
 
 # A widget canvas with a baseline, ticks and tick labels
 # The logic of the placement of scale min/max and ticks belongs to another class.
@@ -84,10 +85,46 @@ class VerticalScaleBar(QtWidgets.QWidget):
         precision = numberPrecision(interval)
         digits = max(0, int(-precision))
 
+        try:
+            y1_index = self.scaleDivision.minorTicks().index(float(150.0))
+            y2_index = self.scaleDivision.minorTicks().index(float(400.0))
+            y1 = self.height() - int(self.coordinateTransform.toScreen(self.scaleDivision.minorTicks()[y1_index]))
+            y2 = self.height() - int(self.coordinateTransform.toScreen(self.scaleDivision.minorTicks()[y2_index]))
+            print("2 ", y1, y2)
+            r = QtCore.QRect(xt, y2, xb, y1)
+            painter.fillRect(r, QtGui.QColor(255, 0, 102))
+        except:
+            print("Error in calculation")
+
+        try:
+            y1_index = self.scaleDivision.minorTicks().index(float(130.0))
+            y2_index = self.scaleDivision.minorTicks().index(float(150.0))
+            y1 = self.height() - int(self.coordinateTransform.toScreen(self.scaleDivision.minorTicks()[y1_index]))
+            y2 = self.height() - int(self.coordinateTransform.toScreen(self.scaleDivision.minorTicks()[y2_index]))
+            print("2 ", y1, y2)
+            r = QtCore.QRect(xt, y2, xb, y1)
+            painter.fillRect(r, QtGui.QColor(96, 96, 96))
+        except:
+            print("Error in calculation")
+
+        try:
+            y1_index = self.scaleDivision.minorTicks().index(50.0)
+            y2_index = self.scaleDivision.minorTicks().index(130.0)
+            print(type(self.scaleDivision.majorTicks()[y1_index]))
+            y1 = self.height() - int(self.coordinateTransform.toScreen(self.scaleDivision.minorTicks()[y1_index]))
+            y2 = self.height() - int(self.coordinateTransform.toScreen(self.scaleDivision.minorTicks()[y2_index]))
+            print("1 ", y1, y2)
+            r = QtCore.QRect(xt, y2, xb, y1)
+            old_value = y2
+            painter.fillRect(r, QtGui.QColor(0, 102, 204))
+        except:
+            print("Error in calculation")
+
         for tick in self.scaleDivision.majorTicks():
             # for vertical scale we invert the coordinates
             y = self.height() - int(self.coordinateTransform.toScreen(tick))
             painter.drawLine(xt, y, xb, y)
+
             if self.coordinateTransform.startBorder < y < self.coordinateTransform.length - self.coordinateTransform.endBorder:
                 tick_string = self.tickFormatter(tick, digits)
                 painter.drawText(le - fm.width(tick_string), y + lh // 2 - 2, tick_string)

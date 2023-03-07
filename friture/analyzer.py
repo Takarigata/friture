@@ -194,6 +194,7 @@ class Friture(QMainWindow, ):
 
     # method
     def saveAppState(self):
+        pass
         settings = QtCore.QSettings("Friture", "Friture")
 
         settings.beginGroup("Docks")

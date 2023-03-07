@@ -25,8 +25,8 @@ import friture.plotting.frequency_scales as fscales
 
 # shared with spectrogram.py
 DEFAULT_FFT_SIZE = 7  # 4096 points
-DEFAULT_FREQ_SCALE = 2  # Mel
-DEFAULT_MAXFREQ = SAMPLING_RATE / 2
+DEFAULT_FREQ_SCALE = 0  # Mel
+DEFAULT_MAXFREQ = 600
 DEFAULT_MINFREQ = 20
 DEFAULT_SPEC_MIN = -140
 DEFAULT_SPEC_MAX = 0
@@ -146,6 +146,7 @@ class Spectrogram_Settings_Dialog(QtWidgets.QDialog):
         
     # method
     def saveState(self, settings):
+        pass
         settings.setValue("timeRange", self.doubleSpinBox_timerange.value())
         settings.setValue("fftSize", self.comboBox_fftsize.currentIndex())
         settings.setValue("freqScale", self.comboBox_freqscale.currentIndex())

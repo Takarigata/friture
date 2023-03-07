@@ -48,6 +48,7 @@ class Spectrogram_Widget(QtWidgets.QWidget):
         self.gridLayout.setObjectName("gridLayout")
         self.PlotZoneImage = ImagePlot(self)
         self.PlotZoneImage.setObjectName("PlotZoneImage")
+        self.test = QtWidgets.QLabel("mdr")
         self.gridLayout.addWidget(self.PlotZoneImage, 0, 1, 1, 1)
 
         self.audiobuffer = None

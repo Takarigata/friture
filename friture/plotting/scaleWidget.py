@@ -21,6 +21,8 @@ from PyQt5 import QtWidgets
 
 from friture.plotting.titleWidget import VerticalTitleWidget, HorizontalTitleWidget, ColorTitleWidget
 from friture.plotting.scaleBar import VerticalScaleBar, HorizontalScaleBar, ColorScaleBar
+from friture.plotting.scaleDivision import ScaleDivision
+from friture.plotting.coordinateTransform import CoordinateTransform
 
 # A layout widget containing:
 # - a title
@@ -34,13 +36,21 @@ class VerticalScaleWidget(QtWidgets.QWidget):
         super(VerticalScaleWidget, self).__init__()
 
         self.titleWidget = VerticalTitleWidget("Scale Widget Title", self)
+        print(transformation, scaleDivision)
         self.scaleBar = VerticalScaleBar(self, transformation, scaleDivision)
+        self.scaleBar.set_scale_properties(transformation, scaleDivision)
+        self.colorScaleDivision = ScaleDivision(20, 600)
+        self.colorScaleTransform = CoordinateTransform(-140, 0, 100, 0, 0)
+
+        #self.colorScale = ColorScaleWidget(self, self.colorScaleDivision, self.colorScaleTransform, False)
 
         plotLayout = QtWidgets.QGridLayout()
         plotLayout.setSpacing(0)
         plotLayout.setContentsMargins(0, 0, 0, 0)
+        self.test = QtWidgets.QLabel("mdr")
         plotLayout.addWidget(self.titleWidget, 0, 0)
-        plotLayout.addWidget(self.scaleBar, 0, 1)
+        plotLayout.addWidget(self.scaleBar, 0, 2)
+        #plotLayout.addWidget(self.colorScale, 0, 1)
 
         self.setLayout(plotLayout)
 
@@ -82,17 +92,19 @@ class HorizontalScaleWidget(QtWidgets.QWidget):
 
 class ColorScaleWidget(QtWidgets.QWidget):
 
-    def __init__(self, parent, transformation, scaleDivision):
+    def __init__(self, parent, transformation, scaleDivision, has_tile=True):
         super(ColorScaleWidget, self).__init__()
 
-        self.titleWidget = ColorTitleWidget("Scale Widget Title", self)
+        if has_tile:
+            self.titleWidget = ColorTitleWidget("Scale Widget Title", self)
         self.scaleBar = ColorScaleBar(self, transformation, scaleDivision)
 
         plotLayout = QtWidgets.QGridLayout()
         plotLayout.setSpacing(0)
         plotLayout.setContentsMargins(0, 0, 0, 0)
         plotLayout.addWidget(self.scaleBar, 0, 0)
-        plotLayout.addWidget(self.titleWidget, 0, 1)
+        if has_tile:
+            plotLayout.addWidget(self.titleWidget, 0, 1)
 
         self.setLayout(plotLayout)
 
