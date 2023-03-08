@@ -21,6 +21,7 @@ class VerticalScaleBar(QtWidgets.QWidget):
         self.labelSpacing = 2
         self.borderOffset = 3
 
+
         self.tickFormatter = lambda tick, digits: '{0:.{1}f}'.format(tick, digits)
 
         # for vertical scale bar
@@ -85,6 +86,7 @@ class VerticalScaleBar(QtWidgets.QWidget):
         precision = numberPrecision(interval)
         digits = max(0, int(-precision))
 
+        print(self.scaleDivision.minorTicks())
         try:
             y1_index = self.scaleDivision.minorTicks().index(float(150.0))
             y2_index = self.scaleDivision.minorTicks().index(float(400.0))

@@ -180,6 +180,7 @@ class ImagePlot(QtWidgets.QWidget):
         self.verticalScaleTransform = CoordinateTransform(20, 20000, 100, 0, 0)
 
         self.verticalScale = VerticalScaleWidget(self, self.verticalScaleDivision, self.verticalScaleTransform)
+
         self.verticalScale.setTitle("Frequency (Hz)")
         self.verticalScale.scaleBar.setTickFormatter(tickFormatter)
 

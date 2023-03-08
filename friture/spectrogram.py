@@ -46,15 +46,9 @@ class Spectrogram_Widget(QtWidgets.QWidget):
         self.setObjectName("Spectrogram_Widget")
         self.gridLayout = QtWidgets.QGridLayout(self)
         self.gridLayout.setObjectName("gridLayout")
-        self.PlotZoneImage = ImagePlot(self)
-        self.PlotZoneImage.setObjectName("PlotZoneImage")
-        self.test = QtWidgets.QLabel("mdr")
-        self.gridLayout.addWidget(self.PlotZoneImage, 0, 1, 1, 1)
-
-        self.audiobuffer = None
-
         # initialize the class instance that will do the fft
         self.proc = audioproc()
+
 
         self.maxfreq = DEFAULT_MAXFREQ
         self.proc.set_maxfreq(self.maxfreq)
@@ -75,9 +69,17 @@ class Spectrogram_Widget(QtWidgets.QWidget):
         self.overlap = 3. / 4.
         self.overlap_frac = Fraction(3, 4)
         self.dT_s = self.fft_size * (1. - self.overlap) / float(SAMPLING_RATE)
+        self.PlotZoneImage = ImagePlot(self)
+        self.PlotZoneImage.setObjectName("PlotZoneImage")
+        self.gridLayout.addWidget(self.PlotZoneImage, 0, 1, 1, 1)
 
-        self.PlotZoneImage.setfreqscale(fscales.Mel) # matches DEFAULT_FREQ_SCALE = 2 # Mel
+        self.audiobuffer = None
+
+
+
+        self.PlotZoneImage.setfreqscale(fscales.Linear) # matches DEFAULT_FREQ_SCALE = 2 # Mel
         self.PlotZoneImage.setfreqrange(self.minfreq, self.maxfreq)
+        print(self.minfreq, self.maxfreq)
         self.PlotZoneImage.setspecrange(self.spec_min, self.spec_max)
         self.PlotZoneImage.setweighting(self.weighting)
         self.PlotZoneImage.settimerange(self.timerange_s, self.dT_s)

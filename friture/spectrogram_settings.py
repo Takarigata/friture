@@ -146,7 +146,6 @@ class Spectrogram_Settings_Dialog(QtWidgets.QDialog):
         
     # method
     def saveState(self, settings):
-        pass
         settings.setValue("timeRange", self.doubleSpinBox_timerange.value())
         settings.setValue("fftSize", self.comboBox_fftsize.currentIndex())
         settings.setValue("freqScale", self.comboBox_freqscale.currentIndex())

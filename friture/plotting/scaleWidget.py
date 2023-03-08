@@ -42,7 +42,6 @@ class VerticalScaleWidget(QtWidgets.QWidget):
         self.colorScaleDivision = ScaleDivision(20, 600)
         self.colorScaleTransform = CoordinateTransform(-140, 0, 100, 0, 0)
 
-        #self.colorScale = ColorScaleWidget(self, self.colorScaleDivision, self.colorScaleTransform, False)
 
         plotLayout = QtWidgets.QGridLayout()
         plotLayout.setSpacing(0)
@@ -50,7 +49,6 @@ class VerticalScaleWidget(QtWidgets.QWidget):
         self.test = QtWidgets.QLabel("mdr")
         plotLayout.addWidget(self.titleWidget, 0, 0)
         plotLayout.addWidget(self.scaleBar, 0, 2)
-        #plotLayout.addWidget(self.colorScale, 0, 1)
 
         self.setLayout(plotLayout)
 
